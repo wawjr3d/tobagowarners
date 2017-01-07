@@ -1,0 +1,24 @@
+.profile-form {
+    overflow: hidden;
+}
+
+.field .input {
+    margin-left: .5em;
+}
+
+.profile-form .field {
+    display: inline-block;
+    float: left;
+    clear: left;
+    margin-top: 1em;
+}
+
+.profile-form .field:first-of-type {
+    margin-top: 0;
+}
+
+.profile-form .submit {
+    float: right;
+    clear: both;
+    margin-top: 1em;
+}

@@ -1,0 +1,9 @@
+extends layout.pug
+
+block content
+  a(href="/create-profile") Create New
+
+  ul
+    each profile, index in profiles
+      li
+        a(href='/profile/' + profile.slug) #{profile.name}

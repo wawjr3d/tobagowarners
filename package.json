@@ -1,0 +1,29 @@
+{
+  "name": "tobagowarners",
+  "version": "1.0.0",
+  "description": "tobagowarners =============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "mongod --fork --logpath mongod.log --dbpath=data --port 27017; trap \"mongo admin --eval 'db.shutdownServer()'\" SIGINT SIGTERM EXIT; nodemon -e js,pug server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wawjr3d/tobagowarners.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wawjr3d/tobagowarners/issues"
+  },
+  "homepage": "https://github.com/wawjr3d/tobagowarners#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.5",
+    "pug": "^2.0.0-beta5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}

@@ -1,0 +1,4 @@
+mixin field(type, name, label, value, focused=false)
+  label.field
+    | #{label}
+    input.input(type=type, name=name, value=value, onfocus="this.select();", autofocus=focused)
