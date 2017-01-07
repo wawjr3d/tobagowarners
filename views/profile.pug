@@ -1,0 +1,10 @@
+extends layout.pug
+
+block title
+  title TobagoWarners || #{profile.name}
+
+block content
+  h1= profile.name
+
+  .prop= profile.email
+  .prop= profile.phone

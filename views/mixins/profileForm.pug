@@ -1,0 +1,10 @@
+include field.pug
+
+mixin profileForm(profile = {})
+
+  form.profile-form(method="POST")
+    +field("text", "name", "Name", profile.name, true)
+    +field("email", "email", "Email", profile.email)
+    +field("tel", "phone", "Phone", profile.phone)
+
+    input.submit(type="submit", value="Submit")
