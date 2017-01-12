@@ -1,10 +1,15 @@
 extends layout.pug
+include mixins/profilePic.pug
 
 block title
   title TobagoWarners || #{profile.name}
 
 block content
   h1= profile.name
+
+  +profilePic(profile)
+
+  a(href='/edit-profile/' + profile.slug) Edit
 
   .prop= profile.email
   .prop= profile.phone

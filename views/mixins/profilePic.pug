@@ -1,0 +1,4 @@
+mixin profilePic(profile = {}, id = '')
+  if profile.pic
+    .profile-pic(id=id)
+      img(src='http://localhost:8080/pics/' + profile.pic)

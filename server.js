@@ -3,6 +3,22 @@ const assert = require('assert');
 const express = require('express');
 const bodyParser = require('body-parser');
 const profileFrom = require('./profiles/profileFrom');
+const crypto = require('crypto');
+const mime = require('mime');
+const path = require('path');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './pics/')
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(4, function (err, raw) {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+    });
+  }
+});
+const upload = multer({ storage: storage });
 
 const DB_URL = 'mongodb://localhost:27017/tobagowarners';
 
@@ -11,6 +27,8 @@ const app = express()
   .set('view engine', 'pug')
 
   .use('/css', express.static(__dirname + '/css'))
+  .use('/js', express.static(__dirname + '/js'))
+  .use('/pics', express.static(__dirname + '/pics'))
 
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
@@ -47,9 +65,9 @@ const app = express()
     });
   })
 
-  .post('/edit-profile/:slug', function(req, res) {
+  .post('/edit-profile/:slug', upload.single('pic'), function(req, res) {
     withProfiles(function(profiles, done) {
-      const profile = profileFrom(req.body);
+      const profile = profileFrom(req.body, req.file);
 
       profiles
         .updateOne(bySlug(req.params.slug), profile)
@@ -64,9 +82,9 @@ const app = express()
     res.render('createProfile');
   })
 
-  .post('/create-profile', function(req, res) {
+  .post('/create-profile', upload.single('pic'), function(req, res) {
     withProfiles(function(profiles, done) {
-      const profile = profileFrom(req.body);
+      const profile = profileFrom(req.body, req.file);
 
       profiles
         .insertOne(profile)
